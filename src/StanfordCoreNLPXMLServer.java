@@ -84,9 +84,13 @@ public class StanfordCoreNLPXMLServer implements Container {
             // silently keep port at 8080
         }
 
-        // initialize the Stanford Core NLP
-        pipeline = new StanfordCoreNLP();
+        // creates a StanfordCoreNLP object, with POS tagging, lemmatization, NER,
+        // parsing, coreference resolution, and sentiment
+        Properties defaultProperties = new Properties();
+        defaultProperties.put("annotators", "tokenize, ssplit, pos, lemma, ner, parse, dcoref, sentiment");
 
+        // initialize the Stanford Core NLP
+        pipeline = new StanfordCoreNLP(defaultProperties);
         // start the server
         Container container = new StanfordCoreNLPXMLServer();
         Server server = new ContainerServer(container);
