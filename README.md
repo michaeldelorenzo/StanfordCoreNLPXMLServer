@@ -88,7 +88,7 @@ Note you can olso try this [online](http://nlp.stanford.edu:8080/corenlp/process
 
 1. Clone the repository:
     
-        git clone https://github.com/nlohmann/StanfordCoreNLPXMLServer.git
+        git clone https://github.com/michaeldelorenzo/StanfordCoreNLPXMLServer.git
 
 2. Download and install the third party libraries:
     
