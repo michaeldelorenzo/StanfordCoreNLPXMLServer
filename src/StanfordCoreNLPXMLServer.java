@@ -41,7 +41,10 @@ import org.simpleframework.transport.connect.SocketConnection;
 public class StanfordCoreNLPXMLServer implements Container {
     private static StanfordCoreNLP pipeline;
     private static int port = 8080;
-    private static final Logger log = Logger.getLogger( StanfordCoreNLPXMLServer.class.getName() );
+    private static String annotators =
+      "tokenize, ssplit, pos, lemma, ner, parse, dcoref, sentiment";
+    private static final Logger log =
+      Logger.getLogger( StanfordCoreNLPXMLServer.class.getName() );
     private static int total_requests = 0;
 
     // an interface to the Stanford Core NLP
@@ -58,14 +61,14 @@ public class StanfordCoreNLPXMLServer implements Container {
             int request_number = ++total_requests;
             log.info("Request " + request_number + " from " + request.getClientAddress().getHostName());
             long time = System.currentTimeMillis();
-   
+
             response.setValue("Content-Type", "text/xml");
             response.setValue("Server", "Stanford CoreNLP XML Server/1.0 (Simple 5.1.6)");
             response.setDate("Date", time);
             response.setDate("Last-Modified", time);
-   
+
             // pass "text" POST query to Stanford Core NLP parser
-            String text = request.getQuery().get("text");  
+            String text = request.getQuery().get("text");
             PrintStream body = response.getPrintStream();
             body.println(parse(text));
             body.close();
@@ -75,12 +78,14 @@ public class StanfordCoreNLPXMLServer implements Container {
         } catch(Exception e) {
             log.log(Level.SEVERE, "Exception", e);
         }
-    } 
+    }
 
     public static void main(String args[]) throws Exception {
-        // use port if given
+        // use port and annotators if given
         try {
             port = Integer.parseInt(args[0]);
+            annotators = !args[1].isEmpty() ?
+              args[1].trim() : annotators;
         } catch(Exception e) {
             // silently keep port at 8080
         }
@@ -88,7 +93,7 @@ public class StanfordCoreNLPXMLServer implements Container {
         // creates a StanfordCoreNLP object, with POS tagging, lemmatization, NER,
         // parsing, coreference resolution, and sentiment
         Properties defaultProperties = new Properties();
-        defaultProperties.put("annotators", "tokenize, ssplit, pos, lemma, ner, parse, dcoref, sentiment");
+        defaultProperties.put("annotators", annotators);
 
         // initialize the Stanford Core NLP
         pipeline = new StanfordCoreNLP(defaultProperties);
