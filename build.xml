@@ -7,7 +7,9 @@
     <property name="lib.dir"     value="lib"/>
 
     <property name="main-class"  value="StanfordCoreNLPXMLServer"/>
-    <property name="port"  value=""/>
+    <property name="port"  value="8080"/>
+    <property name="annotators"  value="tokenize, ssplit, pos, lemma, ner, parse, dcoref, sentiment"/>
+    <property name="maxmemory"  value="1024m"/>
 
     <path id="classpath">
         <fileset dir="${lib.dir}" includes="**/*.jar"/>
@@ -56,14 +58,16 @@
     </target>
 
     <target name="run" depends="jar">
-        <java jar="${jar.dir}/${ant.project.name}.jar" fork="true" maxmemory="1024m">
+        <java jar="${jar.dir}/${ant.project.name}.jar" fork="true" maxmemory="${maxmemory}">
             <arg value="${port}" />
+            <arg value="${annotators}" />
         </java>
     </target>
 
     <target name="test">
-        <java jar="${jar.dir}/${ant.project.name}.jar" fork="true" timeout="30000" maxmemory="1024m">
+        <java jar="${jar.dir}/${ant.project.name}.jar" fork="true" timeout="30000" maxmemory="${maxmemory}">
             <arg value="${port}" />
+            <arg value="${annotators}" />
         </java>
     </target>
 </project>
