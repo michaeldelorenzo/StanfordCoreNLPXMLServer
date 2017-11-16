@@ -1,4 +1,5 @@
 FROM ubuntu
+MAINTAINER Michael De Lorenzo "michael@delorenzodesign.com"
 
 RUN echo debconf shared/accepted-oracle-license-v1-1 select true | debconf-set-selections
 RUN echo debconf shared/accepted-oracle-license-v1-1 seen true | debconf-set-selections
