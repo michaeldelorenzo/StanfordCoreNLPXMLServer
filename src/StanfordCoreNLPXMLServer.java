@@ -62,7 +62,7 @@ public class StanfordCoreNLPXMLServer implements Container {
             log.info("Request " + request_number + " from " + request.getClientAddress().getHostName());
             long time = System.currentTimeMillis();
 
-            response.setValue("Content-Type", "text/xml");
+            response.setValue("Content-Type", "text/xml; charset=UTF-8");
             response.setValue("Server", "Stanford CoreNLP XML Server/1.0 (Simple 5.1.6)");
             response.setDate("Date", time);
             response.setDate("Last-Modified", time);
@@ -94,7 +94,7 @@ public class StanfordCoreNLPXMLServer implements Container {
         // parsing, coreference resolution, and sentiment
         Properties defaultProperties = new Properties();
         defaultProperties.put("annotators", annotators);
-
+        
         // initialize the Stanford Core NLP
         pipeline = new StanfordCoreNLP(defaultProperties);
         // start the server
