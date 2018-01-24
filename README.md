@@ -10,7 +10,10 @@ This software offers the functionality of the [Stanford CoreNLP](http://nlp.stan
 
 The server will be listening at <http://localhost:8080>. The text you want to analyze needs to be POSTed as field `text`:
 
-     curl --data 'text=Hello world!' http://localhost:8080
+     curl -H "Content-Type: application/x-www-form-urlencoded; charset=utf-8" \
+       --data 'text=Hello world!' http://localhost:8080
+
+The `Content-Type` / `charset` header is set to `utf-8` to ensure that all unicode characters are correctly parsed.   
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -87,11 +90,11 @@ Note you can olso try this [online](http://nlp.stanford.edu:8080/corenlp/process
 ## Installation
 
 1. Clone the repository:
-    
+
         git clone https://github.com/michaeldelorenzo/StanfordCoreNLPXMLServer.git
 
 2. Download and install the third party libraries:
-    
+
         cd StanfordCoreNLPXMLServer
         ant libs
 

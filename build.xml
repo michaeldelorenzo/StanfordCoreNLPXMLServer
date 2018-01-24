@@ -31,15 +31,15 @@
     </target>
 
     <target name="stanford">
-        <get src="http://nlp.stanford.edu/software/stanford-corenlp-full-2014-06-16.zip" dest="stanford-corenlp-full-2014-06-16.zip" />
-        <unzip src="stanford-corenlp-full-2014-06-16.zip" dest="." />
+        <get src="http://nlp.stanford.edu/software/stanford-corenlp-full-2017-06-09.zip" dest="stanford-corenlp-full-2017-06-09.zip" />
+        <unzip src="stanford-corenlp-full-2017-06-09.zip" dest="." />
         <move todir="${lib.dir}">
-            <fileset dir="stanford-corenlp-full-2014-06-16">
+            <fileset dir="stanford-corenlp-full-2017-06-09">
                 <include name="**/*.jar" />
             </fileset>
         </move>
-        <delete dir="stanford-corenlp-full-2014-06-16" />
-        <delete file="stanford-corenlp-full-2014-06-16.zip" />
+        <delete dir="stanford-corenlp-full-2017-06-09" />
+        <delete file="stanford-corenlp-full-2017-06-09.zip" />
     </target>
 
     <target name="compile">
